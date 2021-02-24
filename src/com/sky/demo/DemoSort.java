@@ -90,7 +90,6 @@ public class DemoSort {
         List<String> numList = list.stream().filter(single-> p.matcher(single).matches()).collect(Collectors.toList());
         list.removeAll(numList);
         numList = numList.stream().sorted(Comparator.comparing(single->{
-
             // 获取String中的数字
             String numbers = getNumbers(single);
             return Integer.parseInt(numbers);
@@ -108,7 +107,9 @@ public class DemoSort {
     public static String getNumbers(String content) {
 
         Matcher matcher = pattern.matcher(content);
-        while (matcher.find()) {
+        // 如果找到了数字
+        if (matcher.find()) {
+            // 获取第一串数字
             return matcher.group(0);
         }
         return "";
