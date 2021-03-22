@@ -2,10 +2,7 @@ package com.sky.demo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author pengyu
@@ -18,7 +15,24 @@ public class DemoAgno {
     }
 
     private static void demo1(){
-        splitRedPacket2(5f,4,0.1f,2);
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("总金额：");
+            float total = 0;
+            try {
+                total = scanner.nextFloat();
+            } catch (InputMismatchException e) {
+                 throw new RuntimeException("输入类型不匹配，请输入数字");
+            }
+            System.out.print("个数：");
+            int splitCnt = scanner.nextInt();
+            // splitRedPacket2(5f,4,0.1f,2);
+            splitRedPacket2(total, splitCnt, 0.1f, 2);
+            for (int i = 0; i <5; i++) {
+                System.out.println("");
+            }
+        }
     }
 
     /**
@@ -80,7 +94,7 @@ public class DemoAgno {
         }
 
         int check_num = 0;
-        Integer.compare(1, 2);
+        //Integer.compare(1, 2);
        /* al.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -141,7 +155,10 @@ public class DemoAgno {
             total = total - num;
             al.add(num);
         }
-        int couples = splitCount >> 1;
+        int couples = 1;
+        if (splitCount>1) {
+             couples = splitCount >> 1;
+        }
        //float perCoupleSum = total / couples;
         float perCoupleSum = new BigDecimal(total).divide(new BigDecimal(couples), BigDecimal.ROUND_HALF_UP).floatValue();
 
@@ -154,7 +171,11 @@ public class DemoAgno {
             Boolean finish = true;
             float num1 = 0;
             float num2 = 0;
+            int cnt = 0;
             do {
+                if (cnt++>20){
+                    break;
+                }
                // num1 = random.nextInt(max);
                 num1 = makeRandom(perCoupleSum, min, 1).setScale(1,RoundingMode.HALF_UP).floatValue();
                 //num2 = perCoupleSum - num1;
@@ -170,7 +191,7 @@ public class DemoAgno {
                         num1 = subtract.add(new BigDecimal(num1)).floatValue();
                     }
                 }
-                if (num1 < max && num1 > min && num2<max && num2>min){
+                if (num1 < max && num1 >= min && num2<max && num2>min){
                     break;
                 }
             } while (num1 < min || num1 > max || num2 < min || num2 > max);
