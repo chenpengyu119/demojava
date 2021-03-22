@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * 排序
  * @author pengyu
  * @date 2020/5/21 4:25 下午
  */
@@ -113,5 +114,33 @@ public class DemoSort {
             return matcher.group(0);
         }
         return "";
+    }
+
+    /**
+     * 快排
+     */
+    private static void fastSort(){
+
+    }
+
+    /**
+     * 直接插入排序
+     * @param arr
+     * @return
+     */
+    public int[]  straight_insert_sort(int[] arr) {
+        // {7,4,-2,19,13,6}
+        int len = arr.length;
+        int temp = -1;
+        for(int i=1;i<len;i++){
+            for(int j=0;j<i;j++){
+                if(arr[i]<arr[j]){
+                    temp = arr[j];
+                    arr[j] = arr[i];
+                    arr[i] = temp;
+                }
+            }
+        }
+        return arr;
     }
 }
