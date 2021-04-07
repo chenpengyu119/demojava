@@ -107,6 +107,8 @@ public class DemoAgno {
         for (int x : al) {
             check_num = check_num + x;
         }
+
+
         System.out.println("验证总和：" + check_num);
     }
 
@@ -138,6 +140,8 @@ public class DemoAgno {
         System.out.println("个数：	" + splitCount);
         System.out.println("最小金额：	" + min);
         System.out.println("最大金额：	" + max);
+
+        float originTotal = total;
 
         ArrayList<Float> al = new ArrayList<Float>();
 
@@ -173,7 +177,7 @@ public class DemoAgno {
             float num2 = 0;
             int cnt = 0;
             do {
-                if (cnt++>20){
+                if (cnt++>50){
                     break;
                 }
                // num1 = random.nextInt(max);
@@ -208,12 +212,75 @@ public class DemoAgno {
             }
         });*/
 
-        System.out.println(Arrays.toString(al.toArray()));
+     //   System.out.println(Arrays.toString(al.toArray()));
 
+        BigDecimal sum = new BigDecimal(0);
         for (float x : al) {
-            check_num = check_num + x;
+            if (x < 0) {
+                splitRedPacket2(originTotal, splitCount, min, max);
+                return;
+            }
+            sum = sum.add(BigDecimal.valueOf(x));
         }
-        System.out.println("验证总和：" + new BigDecimal(check_num).setScale(1, RoundingMode.HALF_UP));
+        check_num = sum.setScale(2, RoundingMode.HALF_UP).floatValue();
+
+
+        if (BigDecimal.valueOf(check_num).compareTo(BigDecimal.valueOf(originTotal)) > 0){
+            Float aFloat = al.get(al.size() - 1);
+            aFloat = BigDecimal.valueOf(aFloat).subtract(BigDecimal.valueOf(check_num).subtract(BigDecimal.valueOf(originTotal)))
+                    .setScale(1,RoundingMode.HALF_UP).floatValue();
+            al.set(al.size()-1, aFloat);
+
+            BigDecimal lastSum = new BigDecimal(0);
+            for (float x : al) {
+                lastSum = lastSum.add(BigDecimal.valueOf(x));
+            }
+            sum = lastSum;
+        }else if (BigDecimal.valueOf(check_num).compareTo(BigDecimal.valueOf(originTotal)) < 0){
+            Float aFloat = al.get(al.size() - 1);
+            aFloat= BigDecimal.valueOf(aFloat).add(BigDecimal.valueOf(originTotal).subtract(BigDecimal.valueOf(aFloat)))
+                    .setScale(1,RoundingMode.HALF_UP).floatValue();
+            al.set(al.size()-1, aFloat);
+            BigDecimal lastSum = new BigDecimal(0);
+            for (float x : al) {
+                lastSum = lastSum.add(BigDecimal.valueOf(x));
+            }
+            sum  = lastSum;
+        }
+
+        BigDecimal sumDecimal = sum.setScale(2, RoundingMode.HALF_UP);
+
+        if (sum.setScale(0, BigDecimal.ROUND_HALF_UP).floatValue()!=originTotal){
+            System.out.println("产生了负数");
+            BigDecimal totalDecimal = BigDecimal.valueOf(originTotal);
+            BigDecimal cntDecimal = BigDecimal.valueOf(splitCount);
+            BigDecimal divide = totalDecimal.divide(cntDecimal, 1, BigDecimal.ROUND_HALF_UP);
+            BigDecimal calRes = divide.multiply(cntDecimal);
+            List<Double> res = new ArrayList<>();
+            for (int i = 0; i < splitCount; i++) {
+                res.add(divide.doubleValue());
+            }
+            if (calRes.compareTo(totalDecimal) > 0){
+                BigDecimal subtract = calRes.subtract(totalDecimal);
+                res.set(splitCount-1, BigDecimal.valueOf(res.get(splitCount-1)).subtract(subtract).setScale(1
+                        , BigDecimal.ROUND_HALF_UP).doubleValue());
+            }else if (calRes.compareTo(totalDecimal)<0){
+                BigDecimal subtract = totalDecimal.subtract(calRes);
+                res.set(splitCount-1, BigDecimal.valueOf(res.get(splitCount-1)).add(subtract).setScale(1
+                        , BigDecimal.ROUND_HALF_UP).doubleValue());
+            }
+            System.out.println(Arrays.toString(res.toArray()));
+            BigDecimal sumDec = new BigDecimal(0);
+            for (Double re : res) {
+                sumDec = sumDec.add(BigDecimal.valueOf(re));
+            }
+            System.out.println("验证总和：" + sumDec);
+        }else {
+            System.out.println(Arrays.toString(al.toArray()));
+            System.out.println("验证总和：" + sumDecimal);
+        }
+
+
     }
 
 }

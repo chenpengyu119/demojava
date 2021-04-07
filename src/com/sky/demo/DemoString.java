@@ -14,7 +14,7 @@ import java.util.Optional;
 public class DemoString {
     public static void main(String[] args) {
       //  System.out.println(new DemoString().getConnFltNo("AB8375","CZ1234"));;
-        new DemoString().demo29();
+        new DemoString().demoIntern();
     }
 
     private static void demo22(){
@@ -223,5 +223,26 @@ public class DemoString {
         System.out.println(str);
     }
 
+
+    private void demoIntern(){
+        // 如果常量池有，则返回引用，否则在常量池记录引用
+        String a = "a";
+        String b = new String("a");
+        String intern = b.intern();
+        System.out.println(b.equals(intern));
+        System.out.println(a==intern);
+        System.out.println(b==intern);
+
+        String s1 = new String("计算机");
+        String s2 = s1.intern();
+        String s3 = "计算机";
+        System.out.println(s2);//计算机
+        System.out.println(s1 == s2);//false，因为一个是堆内存中的 String 对象一个是常量池中的 String 对象，
+    }
+
+
+    private void demo30(){
+        String s1 = new String("abc");// 这句话创建了几个字符串对象？
+    }
 
 }

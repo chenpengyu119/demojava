@@ -16,8 +16,8 @@ public class DemoStream {
 
     public static void main(String[] args) {
 
-        //demo1();
-        demo2();
+        demo1();
+        //demo2();
     }
 
     private static void  demo1(){
@@ -42,5 +42,9 @@ public class DemoStream {
         for (Map.Entry<String, String> stringStudentEntry : collect.entrySet()) {
             System.out.println(stringStudentEntry.getValue());
         }
+    }
+
+    private static void filter(){
+
     }
 }

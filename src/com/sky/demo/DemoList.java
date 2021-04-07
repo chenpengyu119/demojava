@@ -20,11 +20,19 @@ public class DemoList {
         list.removeIf("B"::equals);
         //System.out.println(list.size());
         System.out.println(list.hashCode());
+        demo2a();
+
     }
 
     private static void demo2a(){
         List<String> list = new ArrayList<>();
         list.add("1");
-
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("B");
+        int b = list.indexOf("B");
+        System.out.println(b);
+        System.out.println(list.subList(0, b+1));
     }
 }

@@ -12,6 +12,14 @@ public class DemoOptional {
         Integer dur = null;
         String res = Optional.ofNullable(dur).orElse(0).toString();
         System.out.println(res);
+        demo1();
+    }
 
+
+    public static void demo1(){
+        Optional<String> op1 = Optional.ofNullable(null);
+        System.out.println(op1.isPresent());
+        Optional<String> op2 = Optional.of("22");
+        System.out.println(op2.isPresent());
     }
 }

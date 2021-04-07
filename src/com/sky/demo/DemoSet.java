@@ -12,8 +12,10 @@ public class DemoSet {
         set.add("1");
         set.add("2");
         set.add("2");
+        set.add(null);
         for (Object o : set) {
             System.out.println(o);
         }
+        System.out.println("是否包含空"+set.contains(null));
     }
 }
