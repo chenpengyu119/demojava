@@ -20,7 +20,7 @@ public class DemoList {
         list.removeIf("B"::equals);
         //System.out.println(list.size());
         System.out.println(list.hashCode());
-        demo2a();
+        demo22();
 
     }
 
@@ -34,5 +34,12 @@ public class DemoList {
         int b = list.indexOf("B");
         System.out.println(b);
         System.out.println(list.subList(0, b+1));
+    }
+
+    private static void demo22(){
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i);
+        }
     }
 }

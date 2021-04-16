@@ -11,12 +11,20 @@ public class DemoPattern {
     //private static Pattern deptPat = Pattern.compile("\\S{2,5}");
     private static Pattern deptPat = Pattern.compile("[\\d-]{0,9}");
 
+    private static final String REGEX_COLOR_CODE = "#[\\da-fA-F]{6}";
+
     private static Pattern fltNoPat = Pattern.compile("([a-zA-Z])*(\\d)*[a-zA-Z\\d]*");
+
     public static void main(String[] args) {
      /*   CharSequence input;
         Matcher m = deptPat.matcher(null);
         System.out.println(m.matches());*/
-     demo4();
+     demo5();
+    }
+
+    private static void demo5(){
+        Pattern pn = Pattern.compile(REGEX_COLOR_CODE);
+        System.out.println(pn.matcher("#111121").matches());
     }
 
     private static void demo4(){

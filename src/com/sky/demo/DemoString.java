@@ -14,7 +14,7 @@ import java.util.Optional;
 public class DemoString {
     public static void main(String[] args) {
       //  System.out.println(new DemoString().getConnFltNo("AB8375","CZ1234"));;
-        new DemoString().demoIntern();
+        new DemoString().demo31();
     }
 
     private static void demo22(){
@@ -243,6 +243,12 @@ public class DemoString {
 
     private void demo30(){
         String s1 = new String("abc");// 这句话创建了几个字符串对象？
+    }
+
+    private void demo31(){
+        System.out.println("1111".length());
+        System.out.println("ABCD".length());
+        System.out.println("一二三四".length());
     }
 
 }
